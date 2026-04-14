@@ -1,0 +1,16 @@
+body {
+    background-color: #f7fdfb; /* light pastel green background */
+    font-family: 'Arial', sans-serif;
+}
+.login-container {
+    background-color: #ffffff; /* white for the login box */
+    border-radius: 20px; /* rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* soft shadow */
+}
+.btn-primary {
+    background-color: #92c6d3; /* soft teal */
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #70b6dc; /* darker teal on hover */
+}

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Faculty Attendance Grid</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<style>
+
+.grid-header{
+background:#7fbf7f;
+color:white;
+font-weight:bold;
+}
+
+.faculty-name{
+background:#f3f4f6;
+font-weight:600;
+}
+
+.cell-input{
+width:100%;
+height:40px;
+text-align:center;
+border:none;
+background:transparent;
+}
+
+.cell-input:focus{
+outline:none;
+background:#ecfdf5;
+}
+
+</style>
+
+</head>
+
+<body class="bg-green-50 font-sans p-8">
+
+<div class="bg-white shadow-xl rounded-2xl p-6">
+
+<h1 class="text-2xl font-bold text-green-700 mb-4">
+Faculty Attendance by Period
+</h1>
+
+<p class="text-gray-500 mb-6">
+2nd Semester SY 2025-2026
+</p>
+
+<div class="overflow-x-auto">
+
+<table class="min-w-full border border-gray-300">
+
+<thead>
+
+<tr>
+
+<th class="p-3 border grid-header">Faculty Name</th>
+<th class="p-3 border grid-header">7:30 - 9:00</th>
+<th class="p-3 border grid-header">9:00 - 10:30</th>
+<th class="p-3 border grid-header">10:30 - 12:00</th>
+<th class="p-3 border grid-header">1:00 - 2:30</th>
+<th class="p-3 border grid-header">2:30 - 4:00</th>
+<th class="p-3 border grid-header">4:00 - 5:00</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td class="faculty-name p-3 border">Ms. Justine Lovely Joy Sta. Ana</td>
+<td class="border"><input class="cell-input" placeholder="RM37"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+</tr>
+
+<tr>
+<td class="faculty-name p-3 border">Mr. Yvanne Rey M. Balatay</td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+</tr>
+
+<tr>
+<td class="faculty-name p-3 border">Mr. Darryl Stash Kobayashi</td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+</tr>
+
+<tr>
+<td class="faculty-name p-3 border">Ms. Antonieta Korinne B. Gagatiga</td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+</tr>
+
+<tr>
+<td class="faculty-name p-3 border">Mr. Mark Van P. Macawile</td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+<td class="border"><input class="cell-input"></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="mt-6 flex gap-4">
+
+<button id="saveBtn"
+class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl">
+Save Attendance
+</button>
+
+<button id="exportBtn"
+class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-xl">
+Export Report
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+// SAVE ATTENDANCE
+document.getElementById("saveBtn").addEventListener("click", function(){
+
+let rows = document.querySelectorAll("tbody tr");
+let attendanceData = [];
+
+rows.forEach(row => {
+
+let faculty = row.querySelector(".faculty-name").innerText;
+let inputs = row.querySelectorAll("input");
+
+let periods = [];
+
+inputs.forEach(input=>{
+periods.push(input.value);
+});
+
+attendanceData.push({
+faculty: faculty,
+periods: periods
+});
+
+});
+
+localStorage.setItem("attendanceData", JSON.stringify(attendanceData));
+
+alert("Attendance saved successfully!");
+
+});
+
+
+
+// EXPORT REPORT
+document.getElementById("exportBtn").addEventListener("click", function(){
+
+let data = JSON.parse(localStorage.getItem("attendanceData"));
+
+if(!data){
+alert("No attendance saved yet!");
+return;
+}
+
+let reportWindow = window.open("", "_blank");
+
+let reportHTML = `
+<html>
+<head>
+
+<title>Attendance Report</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:40px;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid black;
+padding:8px;
+text-align:center;
+}
+
+th{
+background:#7fbf7f;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Faculty Attendance Report</h1>
+
+<table>
+
+<tr>
+<th>Faculty</th>
+<th>7:30-9:00</th>
+<th>9:00-10:30</th>
+<th>10:30-12:00</th>
+<th>1:00-2:30</th>
+<th>2:30-4:00</th>
+<th>4:00-5:00</th>
+</tr>
+`;
+
+data.forEach(row=>{
+
+reportHTML+=`
+<tr>
+<td>${row.faculty}</td>
+<td>${row.periods[0]}</td>
+<td>${row.periods[1]}</td>
+<td>${row.periods[2]}</td>
+<td>${row.periods[3]}</td>
+<td>${row.periods[4]}</td>
+<td>${row.periods[5]}</td>
+</tr>
+`;
+
+});
+
+reportHTML+=`
+
+</table>
+
+<br><br>
+
+<button onclick="window.print()">Print / Save as PDF</button>
+
+</body>
+</html>
+`;
+
+reportWindow.document.write(reportHTML);
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - IT Faculty Attendance and Facilities Scheduling</title>
+
+<style>
+
+/* PAGE BACKGROUND */
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* LOGIN CARD */
+.login-container{
+    background:#1e293b;
+    padding:35px;
+    width:340px;
+    border-radius:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    color:#e5e7eb;
+}
+
+/* TITLE */
+.login-container h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* LABELS */
+label{
+    display:block;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+/* INPUT FIELDS */
+input{
+    width:100%;
+    padding:10px;
+    margin-bottom:18px;
+    border-radius:6px;
+    border:1px solid #334155;
+    background:#111827;
+    color:white;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#3b82f6;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* BUTTON DISABLED */
+button:disabled{
+    background:#475569;
+    cursor:not-allowed;
+}
+
+/* SIGNUP TEXT */
+.signup{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+}
+
+.signup a{
+    color:#60a5fa;
+    text-decoration:none;
+}
+
+.signup a:hover{
+    text-decoration:underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+<h2>Login</h2>
+
+<form id="loginForm">
+
+<label for="username">Username</label>
+<input type="text" id="username" name="username" required>
+
+<label for="password">Password</label>
+<input type="password" id="password" name="password" required>
+
+<button type="submit" id="loginButton" disabled>
+Login
+</button>
+
+</form>
+
+<p class="signup">
+Don't have an account? <a href="#">Sign up</a>
+</p>
+
+</div>
+
+<script>
+
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginButton = document.getElementById('loginButton');
+
+function toggleButtonState(){
+    if(usernameInput.value && passwordInput.value){
+        loginButton.removeAttribute('disabled');
+    }else{
+        loginButton.setAttribute('disabled','true');
+    }
+}
+
+usernameInput.addEventListener('input',toggleButtonState);
+passwordInput.addEventListener('input',toggleButtonState);
+
+</script>
+
+</body>
+</html>
